@@ -1,0 +1,77 @@
+<html>
+  <head>
+  	<style>
+       #card{
+         margin:0px auto;
+         text-align: center;
+       }
+       #card input[type='text']{
+         width:200px;
+         height: 30px;
+         border-radius: 5px;
+         outline: 0px;
+         border: 1px solid #ddd;
+         font-size: 14px;
+         padding: 8px;
+       }
+       #card input[type='button']{
+         width:50px;
+         height: 30px;
+         background-color: navy;
+         color: #fff;
+       }
+  	</style>
+  </head>
+  <body>
+    <div id="card">
+     <h1>Optymyze</h1>
+  	 <input type="text" id="ccd" name="cc" placeholder="xxxx-xxxx-xxxx-xxxx" onkeyup="handleChange(event)"/>
+  	 <input type="button" onclick="handleReset()" value="Reset">
+    </div>
+  </body>
+  <script>
+  		var elem = document.getElementById('ccd'), str="",actual="", lastChar="";
+  		function handleChange(ev){
+         // Here checking the string total length if it is exceeded 19 charecter then not allowing the value, no need of validation
+    		   if(str && str.length>19){
+    		   	  elem.value=str;
+    		   	  return;
+    		   }
+           // Finding the last charecter of target value and appending to the str
+           lastChar= ev.target.value[ev.target.value.length-1];
+           str+=lastChar;
+           // Maintaining the actual string also removing the space
+           actual = ev.target.value.replace(/\s+/g, "");
+           // checking whether the entered value is nueric only
+           var isNumeric=actual.match(/^\d+$/);
+           if(!isNumeric){
+             str=str.slice(0,str.length-1);
+           	 elem.value=str;
+           	 return;
+           }
+           //Appending the space on every 4th charecters
+    		   if(actual.length%4 ==0){
+    		   	 str+=" ";
+    		   }
+           //Updating the input fields
+  		     elem.value=str;
+  		}
+      // This is for reset the value of input field
+  		function handleReset(){
+    			str="";
+    			elem.value=str;
+  		}
+      //For pattern maching we need regex and based on maching of input regex we can display image we need below object for that
+      var regExList=[{
+        regEx:"",//Regular expression for visa
+        img:"./visa.jpg",
+        name:visa
+      },{
+        regEx:"",//Regular expression for mastercard
+        img:"./mastercard.jpg",
+        name:master
+      }]
+
+
+  	</script>
+</html>
